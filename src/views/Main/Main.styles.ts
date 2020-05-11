@@ -5,6 +5,14 @@ export const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     flexGrow: 1,
+    overflow: 'hidden',
+  },
+  btnWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginLeft: '5px',
+    marginRight: '5px',
   },
   header: {
     position: 'static',
@@ -12,7 +20,18 @@ export const useStyles = makeStyles((theme) => ({
   },
   content: {
     flexGrow: 1,
+    position: 'relative',
+  },
+  scrollableContent: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
+    overflow: 'auto',
     padding: '20px 50px',
+    display: 'flex',
+    flexDirection: 'column',
     [theme.breakpoints.down('sm')]: {
       padding: '10px 20px',
     },

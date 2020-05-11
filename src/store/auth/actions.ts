@@ -7,3 +7,5 @@ export const loginAsync = createAsyncAction(
   AuthActionTypes.LOGIN_SUCCESS,
   AuthActionTypes.LOGIN_FAILURE
 )<undefined, undefined, string>();
+
+export const logout = () => action(AuthActionTypes.LOGOUT);

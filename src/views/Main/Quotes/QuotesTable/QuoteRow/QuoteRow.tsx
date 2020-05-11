@@ -1,6 +1,7 @@
 import React from 'react';
 import { IQuote } from 'store/quotes/types';
-import { Star, StarBorder } from '@material-ui/icons';
+import Star from '@material-ui/icons/Star';
+import StarBorder from '@material-ui/icons/StarBorder';
 import { useStyles } from './QuoteRow.styles';
 import { Box, TableCell, TableRow } from '@material-ui/core';
 

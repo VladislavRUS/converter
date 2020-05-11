@@ -2,7 +2,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export const useStyles = makeStyles({
   wrapper: {
-    height: '100%',
+    flexGrow: 1,
   },
   titleWrapper: {
     marginBottom: '20px',

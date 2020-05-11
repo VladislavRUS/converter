@@ -9,7 +9,7 @@ export const useStyles = makeStyles({
     minHeight: '90px',
   },
   bottom: {
-    minHeight: '100px',
+    minHeight: '120px',
     display: 'flex',
     flexDirection: 'column',
   },

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { AppBar, Tabs } from '@material-ui/core';
 import { LinkTab } from 'components/LinkTab';
 import { useStyles } from './NavigationBar.styles';
@@ -13,16 +13,20 @@ type Props = {
   links: INavigationBarLink[];
 };
 
-const NavigationBar: React.FC<Props> = ({ links }) => {
+const NavigationBar: React.FC<Props> = ({ links, children }) => {
   const history = useHistory();
 
   const styles = useStyles();
 
-  const [tab, setTab] = useState(
-    links.findIndex((link) => {
-      return history.location.pathname === link.to;
-    })
-  );
+  const [tab, setTab] = useState(-1);
+
+  useEffect(() => {
+    setTab(
+      links.findIndex((link) => {
+        return history.location.pathname === link.to;
+      })
+    );
+  }, [links, history.location.pathname]);
 
   const onChange = (event: React.ChangeEvent<{}>, newValue: number) => {
     setTab(newValue);
@@ -34,6 +38,7 @@ const NavigationBar: React.FC<Props> = ({ links }) => {
         {links.map((link) => (
           <LinkTab key={link.to} label={link.label} to={link.to} />
         ))}
+        {children}
       </Tabs>
     </AppBar>
   );

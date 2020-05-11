@@ -21,7 +21,7 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators(
     {
       getQuotes,
-      toggleStarQuote: toggleFavoriteQuote,
+      toggleFavoriteQuote,
     },
     dispatch
   );
@@ -30,7 +30,7 @@ type DispatchProps = ReturnType<typeof mapDispatchToProps>;
 
 type Props = StateProps & DispatchProps;
 
-const Quotes: React.FC<Props> = ({ quotes, isFetchingQuotes, getQuotes, toggleStarQuote }) => {
+const Quotes: React.FC<Props> = ({ quotes, isFetchingQuotes, getQuotes, toggleFavoriteQuote }) => {
   const styles = useStyles();
 
   useEffect(() => {
@@ -45,7 +45,7 @@ const Quotes: React.FC<Props> = ({ quotes, isFetchingQuotes, getQuotes, toggleSt
         <PageTitle title={'Просмотр курса валют'} />
       </Box>
 
-      <QuotesTable quotes={quotes} onQuoteClick={toggleStarQuote} />
+      <QuotesTable quotes={quotes} onQuoteClick={toggleFavoriteQuote} />
 
       <FullScreenLoader isLoading={isFetchingQuotes} />
     </Box>

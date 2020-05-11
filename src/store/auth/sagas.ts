@@ -23,9 +23,16 @@ function* handleLogin(action: ReturnType<typeof login>) {
   }
 }
 
+function* handleLogout() {
+  yield put(replace(Routes.AUTH));
+}
+
 const watchers = [
   fork(function* watchLogin() {
     yield takeLeading(AuthActionTypes.LOGIN, handleLogin);
+  }),
+  fork(function* watchLogout() {
+    yield takeLeading(AuthActionTypes.LOGOUT, handleLogout);
   }),
 ];
 
