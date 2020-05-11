@@ -8,5 +8,4 @@ export const getQuotesAsync = createAsyncAction(
   QuotesActionTypes.GET_QUOTES_FAILURE
 )<undefined, IQuote[], undefined>();
 
-export const toggleFavoriteQuote = (quote: IQuote) =>
-  action(QuotesActionTypes.TOGGLE_FAVORITE_QUOTE, { quote });
+export const toggleFavoriteQuote = (quote: IQuote) => action(QuotesActionTypes.TOGGLE_FAVORITE_QUOTE, { quote });

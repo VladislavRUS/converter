@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-export const useStyles = makeStyles({
+export const useStyles = makeStyles((theme) => ({
   wrapper: {
     display: 'flex',
     flexDirection: 'column',
@@ -12,5 +12,9 @@ export const useStyles = makeStyles({
   },
   content: {
     flexGrow: 1,
+    padding: '20px 50px',
+    [theme.breakpoints.down('sm')]: {
+      padding: '10px 20px',
+    },
   },
-});
+}));

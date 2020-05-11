@@ -1,10 +1,8 @@
 import isEmail from 'validator/lib/isEmail';
 
-export const required = (value: string) =>
-  value ? undefined : 'Обязательное поле';
+export const required = (value?: string) => (value !== undefined ? undefined : 'Обязательное поле');
 
-export const email = (value: string) =>
-  isEmail(value) ? undefined : 'Неправильный email';
+export const email = (value: string) => (isEmail(value) ? undefined : 'Неправильный email');
 
 const PASSWORD_REGEXP = /^[a-z0-9_]+$/i;
 
@@ -20,7 +18,13 @@ export const password = (value: string) => {
   return undefined;
 };
 
-export const composeValidators = (...validators: Function[]) => (
-  value: string
-) =>
+export const min = (minValue: number) => (value: string) => {
+  if (parseInt(value) < minValue) {
+    return `Число должно быть больше ${minValue - 1}`;
+  }
+
+  return undefined;
+};
+
+export const composeValidators = (...validators: Function[]) => (value: string) =>
   validators.reduce((error, validator) => error || validator(value), undefined);

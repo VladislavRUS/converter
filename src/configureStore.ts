@@ -5,10 +5,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import { createRootReducer, IApplicationState, rootSaga } from 'store';
 import createSagaMiddleware from 'redux-saga';
 
-export default function configureStore(
-  history: History,
-  initialState: IApplicationState
-): Store<IApplicationState> {
+export default function configureStore(history: History, initialState: IApplicationState): Store<IApplicationState> {
   const composeEnhancers = composeWithDevTools({});
   const sagaMiddleware = createSagaMiddleware();
 

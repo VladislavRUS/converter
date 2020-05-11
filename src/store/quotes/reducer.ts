@@ -9,9 +9,7 @@ const initialState: IQuotesState = {
   isFetchingQuotes: false,
 };
 
-export const quotesReducer = createReducer<IQuotesState, QuotesActionType>(
-  initialState
-)
+export const quotesReducer = createReducer<IQuotesState, QuotesActionType>(initialState)
   // Get quotes
   .handleType(
     QuotesActionTypes.GET_QUOTES_REQUEST,
@@ -43,9 +41,7 @@ export const quotesReducer = createReducer<IQuotesState, QuotesActionType>(
       const { asset } = action.payload.quote;
 
       const quotes = state.quotes.map((quote) =>
-        asset === quote.asset
-          ? { ...quote, isFavorite: !quote.isFavorite }
-          : quote
+        asset === quote.asset ? { ...quote, isFavorite: !quote.isFavorite } : quote
       );
 
       return {

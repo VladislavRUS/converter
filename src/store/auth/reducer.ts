@@ -9,9 +9,7 @@ const initialState: IAuthState = {
   loginError: null,
 };
 
-export const authReducer = createReducer<IAuthState, AuthActionType>(
-  initialState
-)
+export const authReducer = createReducer<IAuthState, AuthActionType>(initialState)
   // Login
   .handleType(
     AuthActionTypes.LOGIN_REQUEST,
@@ -21,10 +19,7 @@ export const authReducer = createReducer<IAuthState, AuthActionType>(
       loginError: null,
     })
   )
-  .handleType(
-    AuthActionTypes.LOGIN_SUCCESS,
-    (state): IAuthState => ({ ...state, isAuthenticating: false })
-  )
+  .handleType(AuthActionTypes.LOGIN_SUCCESS, (state): IAuthState => ({ ...state, isAuthenticating: false }))
   .handleType(
     AuthActionTypes.LOGIN_FAILURE,
     (state, action): IAuthState => ({

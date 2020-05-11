@@ -5,12 +5,10 @@ import { Box } from '@material-ui/core';
 import { connect } from 'react-redux';
 import QuotesTable from 'views/Main/Quotes/QuotesTable';
 import { IApplicationState } from 'store';
-import {
-  selectIsFetchingQuotes,
-  selectSortedQuotes,
-} from 'store/quotes/selectors';
+import { selectIsFetchingQuotes, selectSortedQuotes } from 'store/quotes/selectors';
 import { FullScreenLoader } from 'components/FullScreenLoader';
 import { useStyles } from './Quotes.styles';
+import { PageTitle } from 'components/PageTitle';
 
 const mapStateToProps = (state: IApplicationState) => ({
   quotes: selectSortedQuotes(state),
@@ -32,12 +30,7 @@ type DispatchProps = ReturnType<typeof mapDispatchToProps>;
 
 type Props = StateProps & DispatchProps;
 
-const Quotes: React.FC<Props> = ({
-  quotes,
-  isFetchingQuotes,
-  getQuotes,
-  toggleStarQuote,
-}) => {
+const Quotes: React.FC<Props> = ({ quotes, isFetchingQuotes, getQuotes, toggleStarQuote }) => {
   const styles = useStyles();
 
   useEffect(() => {
@@ -48,9 +41,12 @@ const Quotes: React.FC<Props> = ({
 
   return (
     <Box className={styles.wrapper}>
-      <Box className={styles.tableWrapper}>
-        <QuotesTable quotes={quotes} onQuoteClick={toggleStarQuote} />
+      <Box className={styles.titleWrapper}>
+        <PageTitle title={'Просмотр курса валют'} />
       </Box>
+
+      <QuotesTable quotes={quotes} onQuoteClick={toggleStarQuote} />
+
       <FullScreenLoader isLoading={isFetchingQuotes} />
     </Box>
   );

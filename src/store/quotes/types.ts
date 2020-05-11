@@ -15,7 +15,7 @@ export enum QuotesActionTypes {
 export interface IQuoteServerData {
   asset: string;
   startDate: string;
-  quote: number;
+  quote: string;
 }
 
 export interface IQuote extends IQuoteServerData {

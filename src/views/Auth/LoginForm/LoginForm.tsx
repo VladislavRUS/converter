@@ -79,17 +79,12 @@ const LoginForm: React.FC<Props> = ({ login, error, isAuthenticating }) => {
           />
 
           <Box className={styles.bottom}>
-            <Button
-              type={'submit'}
-              variant={'contained'}
-              color={'primary'}
-              fullWidth={true}
-            >
+            <Button type={'submit'} variant={'contained'} color={'primary'} fullWidth={true}>
               <Typography>Вход</Typography>
             </Button>
 
             {error && (
-              <Alert severity="error" className={styles.alert}>
+              <Alert severity={'error'} className={styles.alert}>
                 {error}
               </Alert>
             )}

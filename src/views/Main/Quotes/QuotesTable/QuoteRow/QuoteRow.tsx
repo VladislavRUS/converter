@@ -1,6 +1,6 @@
 import React from 'react';
 import { IQuote } from 'store/quotes/types';
-import { Star } from '@material-ui/icons';
+import { Star, StarBorder } from '@material-ui/icons';
 import { useStyles } from './QuoteRow.styles';
 import { Box, TableCell, TableRow } from '@material-ui/core';
 
@@ -16,9 +16,9 @@ const QuoteRow: React.FC<Props> = ({ quote, onClick }) => {
 
   return (
     <TableRow hover={true} onClick={onRowClick} className={styles.row}>
-      <TableCell padding="checkbox">
+      <TableCell padding={'checkbox'}>
         <Box className={styles.starIconWrapper}>
-          {quote.isFavorite && <Star className={styles.starIcon} />}
+          {quote.isFavorite ? <Star className={styles.starIcon} /> : <StarBorder className={styles.starIcon} />}
         </Box>
       </TableCell>
       <TableCell>{quote.asset}</TableCell>

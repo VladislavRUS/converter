@@ -1,13 +1,28 @@
 import React, { useState } from 'react';
 import { AppBar, Tabs } from '@material-ui/core';
 import { LinkTab } from 'components/LinkTab';
-import { Routes } from 'entry/Routes';
 import { useStyles } from './NavigationBar.styles';
+import { useHistory } from 'react-router-dom';
 
-const NavigationBar = () => {
+export interface INavigationBarLink {
+  label: string;
+  to: string;
+}
+
+type Props = {
+  links: INavigationBarLink[];
+};
+
+const NavigationBar: React.FC<Props> = ({ links }) => {
+  const history = useHistory();
+
   const styles = useStyles();
 
-  const [tab, setTab] = useState(0);
+  const [tab, setTab] = useState(
+    links.findIndex((link) => {
+      return history.location.pathname === link.to;
+    })
+  );
 
   const onChange = (event: React.ChangeEvent<{}>, newValue: number) => {
     setTab(newValue);
@@ -16,9 +31,9 @@ const NavigationBar = () => {
   return (
     <AppBar className={styles.header}>
       <Tabs variant={'fullWidth'} value={tab} onChange={onChange}>
-        <LinkTab label={'Курсы валют'} to={Routes.QUOTES} />
-        <LinkTab label={'Конвертер'} to={Routes.CONVERTER} />
-        <LinkTab label={'История'} to={Routes.HISTORY} />
+        {links.map((link) => (
+          <LinkTab key={link.to} label={link.label} to={link.to} />
+        ))}
       </Tabs>
     </AppBar>
   );

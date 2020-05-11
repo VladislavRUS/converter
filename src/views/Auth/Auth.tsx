@@ -10,9 +10,7 @@ const Auth = () => {
     <Box className={styles.wrapper}>
       <Box className={styles.formWrapper}>
         <Box className={styles.formHeader}>
-          <Typography className={styles.headerText}>
-            Вход в личный кабинет
-          </Typography>
+          <Typography className={styles.headerText}>Вход в личный кабинет</Typography>
         </Box>
         <Box className={styles.formBody}>
           <LoginForm />
