@@ -12,13 +12,13 @@ export enum QuotesActionTypes {
   TOGGLE_FAVORITE_QUOTE = '@@quotes/TOGGLE_FAVORITE_QUOTE',
 }
 
-export interface IQuoteServerData {
+export interface IQuoteFromServer {
   asset: string;
   startDate: string;
   quote: string;
 }
 
-export interface IQuote extends IQuoteServerData {
+export interface IQuote extends IQuoteFromServer {
   timestamp: number;
   isFavorite: boolean;
 }

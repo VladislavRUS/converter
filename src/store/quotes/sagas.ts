@@ -1,5 +1,5 @@
 import { fork, all, takeEvery, put, call } from 'redux-saga/effects';
-import { IQuote, IQuoteServerData, QuotesActionTypes } from 'store/quotes/types';
+import { IQuote, IQuoteFromServer, QuotesActionTypes } from 'store/quotes/types';
 import { getQuotesAsync } from 'store/quotes/actions';
 import { QuoteApi } from 'api/QuoteApi';
 
@@ -8,7 +8,7 @@ function* handleGetQuotes() {
 
   try {
     const { data } = yield call(QuoteApi.fetchQuotes);
-    const { assets, error }: { assets: IQuoteServerData[]; error: string } = data;
+    const { assets, error }: { assets: IQuoteFromServer[]; error: string } = data;
 
     if (!error) {
       const quotes: IQuote[] = assets.map((quote) => ({
