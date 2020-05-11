@@ -17,7 +17,7 @@ const NavigationBar = () => {
     <AppBar className={styles.header}>
       <Tabs variant={'fullWidth'} value={tab} onChange={onChange}>
         <LinkTab label={'Курсы валют'} to={Routes.QUOTES} />
-        <LinkTab label={'Конвертор'} to={Routes.CONVERTER} />
+        <LinkTab label={'Конвертер'} to={Routes.CONVERTER} />
         <LinkTab label={'История'} to={Routes.HISTORY} />
       </Tabs>
     </AppBar>
