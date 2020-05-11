@@ -10,9 +10,9 @@ function* handleLogin(action: ReturnType<typeof login>) {
 
   try {
     const { data } = yield call(AuthApi.login, action.payload.data);
-    const { result, error } = data;
+    const { error } = data;
 
-    if (result === 'ok') {
+    if (!error) {
       yield put(replace(Routes.MAIN));
       yield put(loginAsync.success());
     } else {

@@ -5,9 +5,7 @@ export const useStyles = makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    height: '100%',
-    paddingLeft: '10px',
-    paddingRight: '10px',
+    flexGrow: 1,
   },
   formWrapper: {
     flexGrow: 1,
@@ -16,6 +14,7 @@ export const useStyles = makeStyles((theme) => ({
     overflow: 'hidden',
     backgroundColor: '#fff',
     boxShadow: '0 0 10px -2px rgba(0, 0, 0, 0.3)',
+    margin: '0 10px',
   },
   formHeader: {
     height: '60px',

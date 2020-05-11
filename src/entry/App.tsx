@@ -11,6 +11,7 @@ const App = () => (
       <Route path={Routes.AUTH}>
         <Auth />
       </Route>
+
       <Route path={Routes.MAIN}>
         <Main />
       </Route>
