@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Box } from '@material-ui/core';
 import { useStyles } from './History.styles';
 import { PageTitle } from 'components/PageTitle';
 import { IApplicationState } from 'store';
-import { selectDeals, selectHistoryDeals, selectIsFetchingDeals, selectPageSize } from 'store/deals/selectors';
+import { selectHistoryDeals, selectIsFetchingDeals, selectPageSize } from 'store/deals/selectors';
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
 import { getDeals } from 'store/deals/actions';
@@ -35,7 +35,7 @@ const History: React.FC<Props> = ({ isFetchingDeals, historyDeals, pageSize, get
 
   useEffect(() => {
     getDeals();
-  }, []);
+  }, [getDeals]);
 
   return (
     <Box className={styles.wrapper}>
