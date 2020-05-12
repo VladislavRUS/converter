@@ -6,7 +6,7 @@ import { Calculator } from 'views/Main/Converter/Calculator';
 import { IApplicationState } from 'store';
 import { selectIsFetchingQuotes, selectSortedQuotes } from 'store/quotes/selectors';
 import { bindActionCreators, Dispatch } from 'redux';
-import { getQuotes } from 'store/quotes/actions';
+import { getQuotesIfNeeded } from 'store/quotes/actions';
 import { FullScreenLoader } from 'components/FullScreenLoader';
 import { connect } from 'react-redux';
 
@@ -20,7 +20,7 @@ type StateProps = ReturnType<typeof mapStateToProps>;
 const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators(
     {
-      getQuotes,
+      getQuotesIfNeeded,
     },
     dispatch
   );
@@ -29,14 +29,12 @@ type DispatchProps = ReturnType<typeof mapDispatchToProps>;
 
 type Props = StateProps & DispatchProps;
 
-const Converter: React.FC<Props> = ({ quotes, isFetchingQuotes, getQuotes }) => {
+const Converter: React.FC<Props> = ({ quotes, isFetchingQuotes, getQuotesIfNeeded }) => {
   const styles = useStyles();
 
   useEffect(() => {
-    if (quotes.length === 0) {
-      getQuotes();
-    }
-  }, [getQuotes, quotes.length]);
+    getQuotesIfNeeded();
+  }, [getQuotesIfNeeded]);
 
   return (
     <Box className={styles.wrapper}>

@@ -4,6 +4,8 @@ export interface IQuotesState {
 }
 
 export enum QuotesActionTypes {
+  GET_QUOTES_IF_NEEDED = '@@quotes/GET_QUOTES_IF_NEEDED',
+
   GET_QUOTES = '@@quotes/GET_QUOTES',
   GET_QUOTES_REQUEST = '@@quotes/GET_QUOTES_REQUEST',
   GET_QUOTES_SUCCESS = '@@quotes/GET_QUOTES_SUCCESS',

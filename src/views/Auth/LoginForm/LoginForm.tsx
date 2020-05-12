@@ -79,7 +79,7 @@ const LoginForm: React.FC<Props> = ({ login, error, isAuthenticating }) => {
           />
 
           <Box className={styles.bottom}>
-            <Button type={'submit'} variant={'contained'} color={'primary'} fullWidth={true}>
+            <Button type={'submit'} variant={'contained'} color={'primary'}>
               <Typography>Вход</Typography>
             </Button>
 

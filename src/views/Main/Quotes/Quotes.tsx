@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { bindActionCreators, Dispatch } from 'redux';
-import { getQuotes, toggleFavoriteQuote } from 'store/quotes/actions';
+import { getQuotesIfNeeded, toggleFavoriteQuote } from 'store/quotes/actions';
 import { Box } from '@material-ui/core';
 import { connect } from 'react-redux';
 import QuotesTable from 'views/Main/Quotes/QuotesTable';
@@ -20,7 +20,7 @@ type StateProps = ReturnType<typeof mapStateToProps>;
 const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators(
     {
-      getQuotes,
+      getQuotesIfNeeded,
       toggleFavoriteQuote,
     },
     dispatch
@@ -30,14 +30,12 @@ type DispatchProps = ReturnType<typeof mapDispatchToProps>;
 
 type Props = StateProps & DispatchProps;
 
-const Quotes: React.FC<Props> = ({ quotes, isFetchingQuotes, getQuotes, toggleFavoriteQuote }) => {
+const Quotes: React.FC<Props> = ({ quotes, isFetchingQuotes, getQuotesIfNeeded, toggleFavoriteQuote }) => {
   const styles = useStyles();
 
   useEffect(() => {
-    if (quotes.length === 0) {
-      getQuotes();
-    }
-  }, [getQuotes, quotes.length]);
+    getQuotesIfNeeded();
+  }, [getQuotesIfNeeded]);
 
   return (
     <Box className={styles.wrapper}>

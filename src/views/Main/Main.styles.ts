@@ -11,7 +11,7 @@ export const useStyles = makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    marginLeft: '5px',
+    marginLeft: 'auto',
     marginRight: '5px',
   },
   header: {

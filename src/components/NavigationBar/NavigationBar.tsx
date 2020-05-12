@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { AppBar, Tabs } from '@material-ui/core';
+import { AppBar, Tabs, Toolbar } from '@material-ui/core';
 import { LinkTab } from 'components/LinkTab';
 import { useStyles } from './NavigationBar.styles';
 import { useHistory } from 'react-router-dom';
@@ -18,7 +18,7 @@ const NavigationBar: React.FC<Props> = ({ links, children }) => {
 
   const styles = useStyles();
 
-  const [tab, setTab] = useState(-1);
+  const [tab, setTab] = useState(0);
 
   useEffect(() => {
     setTab(
@@ -34,12 +34,14 @@ const NavigationBar: React.FC<Props> = ({ links, children }) => {
 
   return (
     <AppBar className={styles.header}>
-      <Tabs variant={'fullWidth'} value={tab} onChange={onChange}>
-        {links.map((link) => (
-          <LinkTab key={link.to} label={link.label} to={link.to} />
-        ))}
+      <Toolbar>
+        <Tabs variant={'fullWidth'} value={tab} onChange={onChange}>
+          {links.map((link) => (
+            <LinkTab key={link.to} label={link.label} to={link.to} />
+          ))}
+        </Tabs>
         {children}
-      </Tabs>
+      </Toolbar>
     </AppBar>
   );
 };

@@ -39,7 +39,7 @@ const DealsTable: React.FC<Props> = ({ deals, pageSize }) => {
         </TableHead>
         <TableBody>
           {deals[page].map((deal) => (
-            <TableRow>
+            <TableRow key={deal.finishDateTimestamp}>
               <TableCell>{deal.asset}</TableCell>
               <TableCell>{deal.startDate}</TableCell>
               <TableCell>{deal.startQuote}</TableCell>

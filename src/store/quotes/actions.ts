@@ -1,6 +1,8 @@
 import { IQuote, QuotesActionTypes } from 'store/quotes/types';
 import { action, createAsyncAction } from 'typesafe-actions';
 
+export const getQuotesIfNeeded = () => action(QuotesActionTypes.GET_QUOTES_IF_NEEDED);
+
 export const getQuotes = () => action(QuotesActionTypes.GET_QUOTES);
 export const getQuotesAsync = createAsyncAction(
   QuotesActionTypes.GET_QUOTES_REQUEST,
