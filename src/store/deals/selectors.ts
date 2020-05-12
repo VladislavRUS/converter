@@ -9,14 +9,6 @@ export const selectRequiredDealsNumber = (state: IApplicationState) => state.dea
 const isDealMoreProfitableThanValue = (deal: IDeal, value: number) => deal.profitValue > value;
 const isDealProfitable = (deal: IDeal) => isDealMoreProfitableThanValue(deal, 0);
 
-const getNumberOfNonProfitableDeals = (deals: IDeal[]) => deals.filter((deal) => !isDealProfitable(deal)).length;
-
-const getNumberOfDealsWithProfitHigherThan = (deals: IDeal[], value: number) =>
-  deals.filter((deal) => isDealMoreProfitableThanValue(deal, value)).length;
-
-const getNumberOfDealsWithAsset = (deals: IDeal[], asset: string) =>
-  deals.filter((deal) => deal.asset === asset).length;
-
 export const selectHistoryDeals = createSelector(
   [selectDeals, selectPageSize, selectRequiredDealsNumber],
   (deals, pageSize, requiredDealsNumber) => {
@@ -36,10 +28,22 @@ export const selectHistoryDeals = createSelector(
     let currentPage = 0;
     const minProfitValue = 100;
 
+    // Количество убыточных сделок на странице
+    let nonProfitableDealsNumberInPage = 0;
+    // Количество сделок с прибылью больше, чем 100 на странице
+    let numberOfDealsWithProfitHigherThanInPage = 0;
+    // Количество валютных пар на странице
+    let assetsMapInPage: { [key: string]: number } = {};
+
     for (let i = 0; i < sortedDeals.length; i++) {
       // Если текущая страница заполнена, переходим к следующей
       if (result[currentPage].length === pageSize) {
         currentPage++;
+
+        // Обнуляем значения предыдущей страницы
+        nonProfitableDealsNumberInPage = 0;
+        numberOfDealsWithProfitHigherThanInPage = 0;
+        assetsMapInPage = {};
       }
 
       // Выходим из цикла, если заполнили все страницы
@@ -47,33 +51,46 @@ export const selectHistoryDeals = createSelector(
         break;
       }
 
+      // Массив сделок текущей страницы
       const pageDeals = result[currentPage];
       const deal = sortedDeals[i];
 
-      // Не подходит, если сделка убыточна и в текущей странице таких больше чем 2
-      const nonProfitable = !isDealProfitable(deal);
-      const nonProfitableDealsNumber = getNumberOfNonProfitableDeals(pageDeals);
+      const isProfitable = isDealProfitable(deal);
 
-      if (nonProfitable && nonProfitableDealsNumber >= 2) {
+      // Если сделка убыточная
+      if (!isProfitable) {
+        // И количество таких меньше, чем 2
+        if (nonProfitableDealsNumberInPage < 2) {
+          nonProfitableDealsNumberInPage++;
+          pageDeals.push(deal);
+        }
+
         continue;
       }
 
-      // Не подходит, если прибыль со сделки больше чем 100 и таких сделок уже больше чем 2
       const moreProfitableThanValue = isDealMoreProfitableThanValue(deal, minProfitValue);
-      const numberOfDealsWithProfitHigherThan = getNumberOfDealsWithProfitHigherThan(pageDeals, minProfitValue);
 
-      if (moreProfitableThanValue && numberOfDealsWithProfitHigherThan >= 2) {
+      // Если прибыль со сделки больше чем 100
+      if (moreProfitableThanValue) {
+        // И количество таких сделок меньше, чем 2
+        if (numberOfDealsWithProfitHigherThanInPage < 2) {
+          numberOfDealsWithProfitHigherThanInPage++;
+          pageDeals.push(deal);
+        }
+
         continue;
       }
 
-      // Не подходит, если количество сделок с такой валютной парой больше чем 2
-      const numberOfDealsWithAsset = getNumberOfDealsWithAsset(pageDeals, deal.asset);
-
-      if (numberOfDealsWithAsset >= 2) {
-        continue;
+      // Если валютная пара не была еще обработана, то добавляем для нее нулевое значение
+      if (!assetsMapInPage.hasOwnProperty(deal.asset)) {
+        assetsMapInPage[deal.asset] = 0;
       }
 
-      pageDeals.push(deal);
+      // Если количество сделок с такой валютной парой меньше, чем 2
+      if (assetsMapInPage[deal.asset] < 2) {
+        pageDeals.push(deal);
+        assetsMapInPage[deal.asset]++;
+      }
     }
 
     return result;
